@@ -7,7 +7,7 @@ services:
     - mongodb_data_container:/data/db
  review-service-ex:
   depends_on:
-    - mongodb_container
+    - mongo
   image: miverboven/review-service-ex
   ports:
     - 8052:8052
