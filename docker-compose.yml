@@ -27,7 +27,7 @@ services:
    MONGODB_PORT: 27017
    MONGODB_HOST: mongo
    
- book-service-ex:
+ book-info-service-ex:
   depends_on:
     - mysql
   image: miverboven/book-info-service-ex
@@ -42,7 +42,7 @@ services:
 
  brank-edge-service-ex:
   depends_on:
-    - book-service-ex
+    - book-info-service-ex
     - review-service-ex
   image: miverboven/brank-edge-service-ex
   ports:
@@ -52,7 +52,7 @@ services:
     - review-service-ex
   environment:
    REVIEW_SERVICE_BASEURL: review-service-ex:8052
-   BOOK_INFO_SERVICE_BASEURL: book-service-ex:8051
+   BOOK_INFO_SERVICE_BASEURL: book-info-service-ex:8051
 
 volumes:
  mongodb_data_container:
