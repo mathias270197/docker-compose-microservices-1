@@ -16,6 +16,5 @@ services:
   environment:
    MONGODB_PORT: 27017
    MONGODB_HOST: mongodb_container
-
 volumes:
  mongodb_data_container:
