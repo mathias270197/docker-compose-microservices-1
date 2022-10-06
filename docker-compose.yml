@@ -11,6 +11,8 @@ services:
   image: miverboven/review-service-ex
   ports:
     - 8052:8052
+  links:
+    - mongodb_container
   environment:
    MONGODB_PORT: 27017
    MONGODB_HOST: mongodb_container
