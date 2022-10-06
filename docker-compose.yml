@@ -15,7 +15,7 @@ services:
   environment:
    MYSQL_ROOT_PASSWORD: abc123
     
- review-service-ex:
+ review-service:
   depends_on:
     - mongo
   image: miverboven/review-service-ex
@@ -27,7 +27,7 @@ services:
    MONGODB_PORT: 27017
    MONGODB_HOST: mongo
    
- book-info-service-ex:
+ book-info-service:
   depends_on:
     - mysql
   image: miverboven/book-info-service-ex
@@ -40,10 +40,10 @@ services:
    MYSQL_DB_PASSWORD: abc123
    MYSQL_DB_HOST: mysql
 
- brank-edge-service-ex:
+ brank-edge-service:
   depends_on:
-    - book-info-service-ex
-    - review-service-ex
+    - book-info-service
+    - review-service
   image: miverboven/brank-edge-service-ex
   ports:
     - 8050:8050
@@ -51,8 +51,8 @@ services:
     - book-service-ex
     - review-service-ex
   environment:
-   REVIEW_SERVICE_BASEURL: review-service-ex:8052
-   BOOK_INFO_SERVICE_BASEURL: book-info-service-ex:8051
+   REVIEW_SERVICE_BASEURL: review-service:8052
+   BOOK_INFO_SERVICE_BASEURL: book-info-service:8051
 
 volumes:
  mongodb_data_container:
