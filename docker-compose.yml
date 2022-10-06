@@ -40,7 +40,7 @@ services:
    MYSQL_DB_PASSWORD: abc123
    MYSQL_DB_HOST: mysql
 
- review-service-ex:
+ brank-edge-service-ex:
   depends_on:
     - book-service-ex
     - review-service-ex
