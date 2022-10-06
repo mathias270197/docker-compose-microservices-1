@@ -1,20 +1,20 @@
 services:
- mongodb_container:
+ mongo:
   image: mongo:latest
   ports:
     - 27017:27017
   volumes:
     - mongodb_data_container:/data/db
- code-server:
+ review-service-ex:
   depends_on:
     - mongodb_container
   image: miverboven/review-service-ex
   ports:
     - 8052:8052
   links:
-    - mongodb_container
+    - mongo
   environment:
    MONGODB_PORT: 27017
-   MONGODB_HOST: mongodb_container
+   MONGODB_HOST: mongo
 volumes:
  mongodb_data_container:
