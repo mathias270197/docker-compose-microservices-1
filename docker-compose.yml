@@ -5,6 +5,16 @@ services:
     - 27017:27017
   volumes:
     - mongodb_data_container:/data/db
+    
+ mysql:
+  image: mysql:latest
+  ports:
+    - 3306:3306
+  volumes:
+    - mysql_data_container:/var/lib/mysql
+  environment:
+   MYSQL_ROOT_PASSWORD: abc123
+    
  review-service-ex:
   depends_on:
     - mongo
@@ -16,5 +26,34 @@ services:
   environment:
    MONGODB_PORT: 27017
    MONGODB_HOST: mongo
+   
+ book-service-ex:
+  depends_on:
+    - mysql
+  image: miverboven/book-info-service-ex
+  ports:
+    - 8051:8051
+  links:
+    - mysql
+  environment:
+   MYSQL_DB_USERNAME: root
+   MYSQL_DB_PASSWORD: abc123
+   MYSQL_DB_HOST: mysql
+
+ review-service-ex:
+  depends_on:
+    - book-service-ex
+    - review-service-ex
+  image: miverboven/brank-edge-service-ex
+  ports:
+    - 8050:8050
+  links:
+    - book-service-ex
+    - review-service-ex
+  environment:
+   REVIEW_SERVICE_BASEURL: review-service-ex:8052
+   BOOK_INFO_SERVICE_BASEURL: book-service-ex:8051
+
 volumes:
  mongodb_data_container:
+ mysql_data_container:
